@@ -7,7 +7,7 @@
 ![Version](https://img.shields.io/github/v/release/LouisOuellet/php-csrf?label=Version&style=for-the-badge)
 
 ## Features
-  - CSRF Protection
+  - Cross-site Request Forgery Protection
 
 ## Why you might need it
 If you are looking for an easy way to CSRF Protection in your project. This PHP Class is for you.
