@@ -1,0 +1,19 @@
+{
+    "name": "laswitchtech/php-csrf",
+    "description": "CSRF Protection Library for PHP Applications",
+    "type": "library",
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "Louis Ouellet",
+            "email": "louis_ouellet@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "LaswitchTech\\phpAUTH\\": "src/"
+        }
+    }
+}
