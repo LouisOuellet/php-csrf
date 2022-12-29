@@ -8,6 +8,12 @@ class phpCSRF {
   protected $csrf = null;
 
   public function __construct(){
+
+    // Restrict Cookie Access
+    ini_set('session.cookie_samesite', 'None');
+    session_set_cookie_params(['samesite' => 'None']);
+
+    // Setup CSRF Token
     if(session_status() !== PHP_SESSION_NONE){
       if(!isset($_SESSION["csrf"])){ $_SESSION["csrf"] = bin2hex(random_bytes(32)); }
       $this->csrf = $_SESSION["csrf"];
