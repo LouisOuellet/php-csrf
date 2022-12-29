@@ -9,9 +9,11 @@ class phpCSRF {
 
   public function __construct(){
 
-    // Restrict Cookie Access
-    ini_set('session.cookie_samesite', 'None');
-    session_set_cookie_params(['samesite' => 'None']);
+    // Configure Cookie Scope
+    if(session_status() < 2){
+      ini_set('session.cookie_samesite', 'Strict');
+      ini_set('session.cookie_secure', 'On');
+    }
 
     // Setup CSRF Token
     if(session_status() !== PHP_SESSION_NONE){
