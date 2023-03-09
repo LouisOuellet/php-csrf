@@ -6,11 +6,20 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/LouisOuellet/php-csrf?style=for-the-badge)
 ![Version](https://img.shields.io/github/v/release/LouisOuellet/php-csrf?label=Version&style=for-the-badge)
 
-## Features
-  - Cross-site Request Forgery Protection
+## Description
+This class is a PHP implementation of a CSRF token generation and validation system. CSRF (Cross-Site Request Forgery) is an attack in which an attacker tricks a user into performing an unwanted action on a website, by sending a forged request on behalf of the user.
 
-## Why you might need it
-If you are looking for an easy way to CSRF Protection in your project. This PHP Class is for you.
+## Features
+  - Generates a CSRF token using a cryptographically secure random number generator.
+  - Uses the default field name 'csrf' for retrieving and validating the token, but allows a custom field name to be set through the constructor.
+  - Supports setting the length of the token through the generate method, with a default length of 32 bytes.
+  - Logs error messages to a file using the phpLogger class, with IP address information included in the log entries.
+  - Configures cookie security settings to help prevent cross-site scripting (XSS) and cross-site request forgery (CSRF) attacks.
+
+## Why you might need it?
+This class provides a simple implementation of a CSRF token generator and validator in PHP. It is designed to be easy to use, while still providing adequate security measures to prevent CSRF attacks.
+
+CSRF attacks occur when a malicious user tricks an authenticated user into performing an unintended action on a web application. To prevent these attacks, a CSRF token is generated and added to the form that is being submitted. When the form is submitted, the token is validated to ensure that it matches the expected value. If the token is invalid, the request is rejected.
 
 ## Can I use this?
 Sure!
@@ -19,7 +28,7 @@ Sure!
 This software is distributed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) license. Please read [LICENSE](LICENSE) for information on the software availability and distribution.
 
 ## Requirements
-* PHP >= 5.6.0
+* PHP >= 7.0.0
 
 ## Security
 Please disclose any vulnerabilities found responsibly – report security issues to the maintainers privately.
@@ -31,8 +40,6 @@ composer require laswitchtech/php-csrf
 ```
 
 ## How do I use it?
-In this documentations, we will use a table called users for our examples.
-
 ### Example
 #### Initiate CSRF
 ```php

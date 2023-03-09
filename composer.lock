@@ -1,0 +1,56 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "3804aff3dd816ac96d206b5deeeff4bc",
+    "packages": [
+        {
+            "name": "laswitchtech/php-logger",
+            "version": "v1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LouisOuellet/php-logger.git",
+                "reference": "9505c33c45beff4445b1e37023023d19d5b87cc5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LouisOuellet/php-logger/zipball/9505c33c45beff4445b1e37023023d19d5b87cc5",
+                "reference": "9505c33c45beff4445b1e37023023d19d5b87cc5",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaswitchTech\\phpLogger\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-only"
+            ],
+            "authors": [
+                {
+                    "name": "Louis Ouellet",
+                    "email": "louis_ouellet@hotmail.com"
+                }
+            ],
+            "description": "Easy to use logging library for PHP",
+            "support": {
+                "issues": "https://github.com/LouisOuellet/php-logger/issues",
+                "source": "https://github.com/LouisOuellet/php-logger/tree/v1.0.8"
+            },
+            "time": "2023-03-09T17:41:53+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

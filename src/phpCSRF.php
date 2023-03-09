@@ -1,13 +1,44 @@
+Can you tell me the minimum php version required for this class?
+
 <?php
 
 //Declaring namespace
 namespace LaswitchTech\phpCSRF;
 
+//Import phpLogger class into the global namespace
+use LaswitchTech\phpLogger\phpLogger;
+
+//Import Exception class into the global namespace
+use \Exception;
+
 class phpCSRF {
 
-  protected $csrf = null;
+  const FIELD = 'csrf';
+  const LENGTH = 32;
 
-  public function __construct(){
+  private $hash = null;
+  private $field;
+
+  private $Logger;
+
+  /**
+   * Create a new phpCSRF instance.
+   *
+   * @param  string|null  $field
+   * @return void
+   */
+  public function __construct($field = self::FIELD){
+
+    // Initiate phpLogger
+    $this->Logger = new phpLogger(['csrf' => 'log/csrf.log']);
+
+    // Configure phpLogger
+    $this->Logger->config('ip',true);
+
+    // Configure default field to retrieve token
+    if(is_string($field)){
+      $this->field = $field;
+    }
 
     // Configure Cookie Scope
     if(session_status() < 2){
@@ -16,17 +47,67 @@ class phpCSRF {
     }
 
     // Setup CSRF Token
-    if(session_status() !== PHP_SESSION_NONE){
-      if(!isset($_SESSION["csrf"])){ $_SESSION["csrf"] = bin2hex(random_bytes(32)); }
-      $this->csrf = $_SESSION["csrf"];
+    if(session_status() === PHP_SESSION_NONE){
+      $this->Logger->error("Unable to find a session.");
+      throw new Exception("Unable to find a session.");
+    }
+
+    // Generate Token
+    $this->generate();
+  }
+
+  /**
+   * Generate token.
+   *
+   * @param  int|null  $length
+   * @return void
+   */
+  public function generate($length = self::LENGTH){
+    if(is_int($length)){
+      if(!isset($_SESSION[$this->field])){ $_SESSION[$this->field] = bin2hex(random_bytes($length)); }
+      $this->hash = $_SESSION[$this->field];
+    } else {
+      $this->Logger->error("Invalid length.");
+      throw new Exception("Invalid length.");
     }
   }
 
+  /**
+   * Get token.
+   *
+   * @return string $this->hash
+   */
   public function token(){
-    return $this->csrf;
+    return $this->hash;
   }
 
-  public function validate(){
-    return ($this->csrf != null && !empty($_REQUEST["csrf"]) && hash_equals($_REQUEST["csrf"], $this->csrf));
+  /**
+   * Validate a token.
+   *
+   * @param  string|null  $token
+   * @return boolean
+   * @throws Exception
+   */
+  public function validate($token = null){
+    if($token == null && !empty($_REQUEST[$this->field])){
+      $token = $_REQUEST[$this->field];
+    }
+    if($token != null){
+      if(is_string($token)){
+        if($this->hash != null && hash_equals($token, $this->hash)){
+          return true;
+        } else {
+          $this->Logger->error("Invalid token.");
+          throw new Exception("Invalid token.");
+        }
+      } else {
+        $this->Logger->error("Token was not sanitized.");
+        throw new Exception("Token was not sanitized.");
+      }
+    } else {
+      $this->Logger->error("Unable to validate token.");
+      throw new Exception("Unable to validate token.");
+    }
+    return false;
   }
 }

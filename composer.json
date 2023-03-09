@@ -10,7 +10,9 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {},
+    "require": {
+        "laswitchtech/php-logger": "^1.0"
+    },
     "autoload": {
         "psr-4": {
             "LaswitchTech\\phpCSRF\\": "src/"
