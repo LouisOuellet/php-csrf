@@ -26,6 +26,7 @@ class phpCSRF {
    *
    * @param  string|null  $field
    * @return void
+   * @throws Exception
    */
   public function __construct($field = self::FIELD){
 
@@ -61,6 +62,7 @@ class phpCSRF {
    *
    * @param  int|null  $length
    * @return void
+   * @throws Exception
    */
   public function generate($length = self::LENGTH){
     if(is_int($length)){
