@@ -1,5 +1,3 @@
-Can you tell me the minimum php version required for this class?
-
 <?php
 
 //Declaring namespace
