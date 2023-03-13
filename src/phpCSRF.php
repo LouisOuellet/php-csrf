@@ -33,6 +33,7 @@ class phpCSRF {
 
     // Configure phpLogger
     $this->Logger->config('ip',true);
+    $this->Logger->config('rotation',false);
 
     // Configure default field to retrieve token
     if(is_string($field)){
