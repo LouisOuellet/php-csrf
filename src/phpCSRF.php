@@ -15,9 +15,12 @@ class phpCSRF {
   const LENGTH = 32;
 
   private $hash = null;
-  private $field;
+  private $field = self::FIELD;
+  private $length = self::LENGTH;
 
+	// Logger
   private $Logger;
+	private $Level = 1;
 
   /**
    * Create a new phpCSRF instance.
@@ -34,6 +37,7 @@ class phpCSRF {
     // Configure phpLogger
     $this->Logger->config('ip',true);
     $this->Logger->config('rotation',false);
+    $this->Logger->config('level',$this->Level);
 
     // Configure default field to retrieve token
     if(is_string($field)){
@@ -54,6 +58,56 @@ class phpCSRF {
 
     // Generate Token
     $this->generate();
+  }
+
+  /**
+   * Configure Library.
+   *
+   * @param  string  $option
+   * @param  bool|int  $value
+   * @return void
+   * @throws Exception
+   */
+  public function config($option, $value){
+		try {
+			if(is_string($option)){
+	      switch($option){
+	        case"field":
+	          if(is_string($value)){
+	            $this->field = $value;
+	          } else{
+	            throw new Exception("2nd argument must be a string.");
+	          }
+	          break;
+	        case"length":
+	          if(is_int($value)){
+              $this->length = $value;
+	          } else{
+	            throw new Exception("2nd argument must be an integer.");
+	          }
+	          break;
+	        case"level":
+	          if(is_int($value)){
+
+							// Logging Level
+	            $this->Level = $value;
+
+							// Configure phpLogger
+					    $this->Logger->config('level',$this->Level);
+	          } else{
+	            throw new Exception("2nd argument must be an integer.");
+	          }
+	          break;
+	        default:
+	          throw new Exception("unable to configure $option.");
+	          break;
+	      }
+	    } else{
+	      throw new Exception("1st argument must be as string.");
+	    }
+		} catch (Exception $e) {
+			$this->Logger->error('Error: '.$e->getMessage());
+		}
   }
 
   /**
