@@ -108,6 +108,8 @@ class phpCSRF {
 		} catch (Exception $e) {
 			$this->Logger->error('Error: '.$e->getMessage());
 		}
+
+    return $this;
   }
 
   /**
