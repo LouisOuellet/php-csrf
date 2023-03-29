@@ -155,15 +155,12 @@ class phpCSRF {
           return true;
         } else {
           $this->Logger->error("Invalid token.");
-          throw new Exception("Invalid token.");
         }
       } else {
         $this->Logger->error("Token was not sanitized.");
-        throw new Exception("Token was not sanitized.");
       }
     } else {
       $this->Logger->error("Unable to validate token.");
-      throw new Exception("Unable to validate token.");
     }
     return false;
   }
