@@ -3,6 +3,9 @@
 //Declaring namespace
 namespace LaswitchTech\phpCSRF;
 
+//Import phpConfigurator class into the global namespace
+use LaswitchTech\phpConfigurator\phpConfigurator;
+
 //Import phpLogger class into the global namespace
 use LaswitchTech\phpLogger\phpLogger;
 
@@ -22,6 +25,9 @@ class phpCSRF {
   private $Logger;
 	private $Level = 1;
 
+  // Configurator
+  private $Configurator = null;
+
   /**
    * Create a new phpCSRF instance.
    *
@@ -31,13 +37,18 @@ class phpCSRF {
    */
   public function __construct($field = self::FIELD){
 
-    // Initiate phpLogger
-    $this->Logger = new phpLogger(['csrf' => 'log/csrf.log']);
+    // Initialize Configurator
+    $this->Configurator = new phpConfigurator('csrf');
 
-    // Configure phpLogger
-    $this->Logger->config('ip',true);
-    $this->Logger->config('rotation',false);
-    $this->Logger->config('level',$this->Level);
+    // Retrieve Log Level
+    $this->Level = $this->Configurator->get('logger', 'level') ?: $this->Level;
+
+    // Retrieve CSRF Settings
+    $this->field = $this->Configurator->get('csrf', 'field') ?: $this->field;
+    $this->length = $this->Configurator->get('csrf', 'length') ?: $this->length;
+
+    // Initiate phpLogger
+    $this->Logger = new phpLogger('csrf');
 
     // Configure default field to retrieve token
     if(is_string($field)){
@@ -75,6 +86,9 @@ class phpCSRF {
 	        case"field":
 	          if(is_string($value)){
 	            $this->field = $value;
+
+              // Save to Configurator
+              $this->Configurator->set('csrf',$option, $value);
 	          } else{
 	            throw new Exception("2nd argument must be a string.");
 	          }
@@ -82,6 +96,9 @@ class phpCSRF {
 	        case"length":
 	          if(is_int($value)){
               $this->length = $value;
+
+              // Save to Configurator
+              $this->Configurator->set('csrf',$option, $value);
 	          } else{
 	            throw new Exception("2nd argument must be an integer.");
 	          }
