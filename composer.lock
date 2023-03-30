@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3804aff3dd816ac96d206b5deeeff4bc",
+    "content-hash": "1f1a8d4e32ba7dd6ed5cc4fdc5c1b084",
     "packages": [
         {
             "name": "laswitchtech/php-configurator",
