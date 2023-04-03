@@ -103,18 +103,6 @@ class phpCSRF {
 	            throw new Exception("2nd argument must be an integer.");
 	          }
 	          break;
-	        case"level":
-	          if(is_int($value)){
-
-							// Logging Level
-	            $this->Level = $value;
-
-							// Configure phpLogger
-					    $this->Logger->config('level',$this->Level);
-	          } else{
-	            throw new Exception("2nd argument must be an integer.");
-	          }
-	          break;
 	        default:
 	          throw new Exception("unable to configure $option.");
 	          break;
